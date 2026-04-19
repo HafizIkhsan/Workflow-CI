@@ -100,6 +100,7 @@ jobs:
         with:
           username: ${{ secrets.DOCKER_HUB_USERNAME }}
           password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+          logout: true
 
         # Tag Docker Image
       - name: Tag Docker Image
