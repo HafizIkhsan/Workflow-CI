@@ -32,8 +32,6 @@ if __name__ == "__main__":
         # Train model
         model = RandomForestClassifier(n_estimators=n_estimators, max_depth=max_depth)
         
-        predicted_qualities = model.predict(X_test)
-
         mlflow.sklearn.log_model(
             sk_model=model,
             artifact_path="model",
@@ -41,6 +39,8 @@ if __name__ == "__main__":
         )
 
         model.fit(X_train, y_train)
+        predicted_qualities = model.predict(X_test)
+
 
         # Log metrics
         accuracy = model.score(X_test, y_test)
