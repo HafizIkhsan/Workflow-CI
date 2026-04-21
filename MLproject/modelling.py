@@ -37,13 +37,14 @@ if __name__ == "__main__":
         # jadi saya coba naikkan keatas sebelum log
         
         model.fit(X_train, y_train)
-        predicted_qualities = model.predict(X_test)
         
         mlflow.sklearn.log_model(
             sk_model=model,
             artifact_path="model",
             input_example=input_example
         )
+
+        predicted_qualities = model.predict(X_test)
 
         # Log metrics
         accuracy = model.score(X_test, y_test)
