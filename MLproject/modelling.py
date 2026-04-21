@@ -31,6 +31,13 @@ if __name__ == "__main__":
 
         # Train model
         model = RandomForestClassifier(n_estimators=n_estimators, max_depth=max_depth)
+
+        # Urutan model.fit saya naikan diatas log karena saat saya coba inferensi dia error 
+        # "This RandomForestClassifier instance is not fitted yet. Call 'fit' with appropriate arguments before using this estimator.\n" 
+        # jadi saya coba naikkan keatas sebelum log
+        
+        model.fit(X_train, y_train)
+        predicted_qualities = model.predict(X_test)
         
         mlflow.sklearn.log_model(
             sk_model=model,
@@ -38,11 +45,6 @@ if __name__ == "__main__":
             input_example=input_example
         )
 
-        model.fit(X_train, y_train)
-        predicted_qualities = model.predict(X_test)
-
-
         # Log metrics
         accuracy = model.score(X_test, y_test)
         mlflow.log_metric("accuracy", accuracy)
-
